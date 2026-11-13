@@ -646,6 +646,10 @@ public class EmailOTPFormAuthenticator extends AbstractUsernameFormAuthenticator
                 .setUser(user)
                 .send(
                     OTP_EMAIL_SUBJECT_KEY,
+                    // The code is the subject's {0}: mail clients (Gmail, iOS, Android)
+                    // detect it there and offer "Copy code" from the notification/inbox.
+                    // Subjects without a {0} placeholder simply ignore it.
+                    List.of(otp),
                     OTP_EMAIL_TEMPLATE_NAME,
                     attributes
                 );
